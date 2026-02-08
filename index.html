@@ -7,55 +7,117 @@
   <style>
     body {
       font-family: Verdana, Geneva, sans-serif;
-      background-color: #f0f0f0;
+      background: linear-gradient(to bottom, #c0d9f0, #ffffff);
       color: #000;
-      text-align: center;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
+
     .container {
       max-width: 800px;
       margin: 50px auto;
       padding: 20px;
       background-color: #fff;
-      border: 2px solid #000;
+      border: 3px solid #000;
       box-shadow: 5px 5px 0 #aaa;
     }
+
     h1 {
       font-size: 48px;
       margin-bottom: 20px;
+      color: #003366;
     }
+
     img {
       width: 150px;
-      height: auto;
       margin-bottom: 20px;
+      border: 2px solid #000;
     }
+
     h2 {
       font-size: 28px;
       margin-top: 40px;
       margin-bottom: 20px;
       text-decoration: underline;
+      color: #003366;
     }
+
     .faq {
-      text-align: left;
-      margin: 0 auto;
       max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
       font-size: 16px;
     }
-    .faq p {
-      margin: 10px 0;
+
+    .question {
+      background-color: #e0e0e0;
+      padding: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+      border: 1px solid #000;
+      font-weight: bold;
+      transition: background-color 0.2s;
     }
+
+    .question:hover {
+      background-color: #c0c0ff;
+    }
+
+    .answer {
+      display: none;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-left: 2px solid #000;
+      border-right: 2px solid #000;
+      border-bottom: 2px solid #000;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    /* Blinking text effect for retro 2000s vibe */
+    .blink {
+      animation: blinker 1s linear infinite;
+      color: #ff0000;
+      font-weight: bold;
+    }
+
+    @keyframes blinker {
+      50% { opacity: 0; }
+    }
+
     .footer {
       margin-top: 50px;
       font-size: 18px;
+      color: #003366;
     }
+
     .footer a {
       color: #0000ee;
       text-decoration: none;
     }
+
     hr {
       margin: 30px 0;
-      border: 1px solid #000;
+      border: 2px solid #000;
+    }
+
+    /* Retro button look */
+    .retro-button {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      font-weight: bold;
+      color: #000;
+      background-color: #ffcc00;
+      border: 2px solid #000;
+      box-shadow: 3px 3px #888888;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .retro-button:hover {
+      background-color: #ff9900;
     }
   </style>
 </head>
@@ -63,26 +125,37 @@
   <div class="container">
     <h1>Welcome to FMail</h1>
     <img src="https://i.postimg.cc/25yCwCQK/Untitled1804-20260208025446.png" alt="FMail Icon">
-    
+
     <h2>FAQ</h2>
     <div class="faq">
-      <p><strong>Question 1:</strong> What the hell is FMail?</p>
-      <p><strong>Answer:</strong> FMail is a prank site. You make mail so it seems like someone emailed you, e.g., a celeb! Or anyone else, idk?</p>
+      <div class="question">What the hell is FMail?</div>
+      <div class="answer">FMail is a prank site. You make mail so it seems like someone emailed you, e.g., a celeb! Or anyone else, idk?</div>
       
-      <p><strong>Question 2:</strong> Can you send real emails?</p>
-      <p><strong>Answer:</strong> Nope, it's a pranking site.</p>
+      <div class="question">Can you send real emails?</div>
+      <div class="answer">Nope, it's a pranking site.</div>
       
-      <p>Any other questions? Email me ¯\_(ツ)_/¯ <a href="mailto:ball.dex.help@gmail.com">ball.dex.help@gmail.com</a></p>
+      <div class="question">Any other questions?</div>
+      <div class="answer">Email me ¯\_(ツ)_/¯ <a href="mailto:ball.dex.help@gmail.com">ball.dex.help@gmail.com</a></div>
     </div>
 
     <hr>
 
     <div class="footer">
-      <p>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+      <p class="blink">↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
       <p>Try FMail TODAY!</p>
-      <p><a href="https://github.com/aqua-os-ux/FMail">https://github.com/aqua-os-ux/FMail</a></p>
-      <p>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑</p>
+      <p><a class="retro-button" href="https://aqua-os-ux.github.io/FMail/">https://aqua-os-ux.github.io/FMail/</a></p>
+      <p class="blink">↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑</p>
     </div>
   </div>
+
+  <script>
+    const questions = document.querySelectorAll('.question');
+    questions.forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+      });
+    });
+  </script>
 </body>
 </html>
