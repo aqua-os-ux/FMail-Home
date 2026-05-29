@@ -1,177 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FMail Homepage</title>
-  <style>
-    body {
-      font-family: Verdana, Geneva, sans-serif;
-      background: linear-gradient(to bottom, #c0d9f0, #ffffff);
-      color: #000;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .top-icon {
-      width: 60px;
-      height: auto;
-      margin: 20px;
-      cursor: pointer;
-      border: 2px solid #000;
-    }
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background-image: url('https://i.postimg.cc/ZYdtTVmV/IMG-4051.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Product Sans', system-ui, sans-serif;
+        }
 
-    .container {
-      max-width: 800px;
-      margin: 20px auto 50px auto;
-      padding: 20px;
-      background-color: #fff;
-      border: 3px solid #000;
-      box-shadow: 5px 5px 0 #aaa;
-    }
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background-color: #3C282B;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            gap: 12px;
+        }
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #003366;
-    }
+        .left-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 60px;
+        }
 
-    img.main-icon {
-      width: 150px;
-      margin-bottom: 20px;
-      border: 2px solid #000;
-    }
+        .taskbar-image {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            object-fit: cover;
+        }
 
-    h2 {
-      font-size: 28px;
-      margin-top: 40px;
-      margin-bottom: 20px;
-      text-decoration: underline;
-      color: #003366;
-    }
+        .taskbar-image:hover {
+            transform: scale(1.08);
+        }
 
-    .faq {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: left;
-      font-size: 16px;
-    }
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .question {
-      background-color: #e0e0e0;
-      padding: 10px;
-      margin: 5px 0;
-      cursor: pointer;
-      border: 1px solid #000;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
+        .icon-circle {
+            width: 32px;
+            height: 32px;
+            background-color: #2C1F22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E0E0E0;
+            font-size: 18px;
+            cursor: pointer;
+        }
 
-    .question:hover {
-      background-color: #c0c0ff;
-    }
+        .date {
+            color: #E0E0E0;
+            font-size: 13.5px;
+            padding: 0 12px;
+            cursor: pointer;
+        }
 
-    .answer {
-      display: none;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-left: 2px solid #000;
-      border-right: 2px solid #000;
-      border-bottom: 2px solid #000;
-      margin-bottom: 10px;
-      font-style: italic;
-    }
+        /* Panels */
+        .panel {
+            position: fixed;
+            bottom: 64px;
+            width: 360px;
+            background-color: #2C1F22;
+            border-radius: 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.85) translateY(20px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+        }
 
-    /* Blinking text effect for retro 2000s vibe */
-    .blink {
-      animation: blinker 1s linear infinite;
-      color: #ff0000;
-      font-weight: bold;
-    }
+        .panel.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
 
-    @keyframes blinker {
-      50% { opacity: 0; }
-    }
+        .search-container {
+            padding: 16px 20px 8px;
+        }
 
-    .footer {
-      margin-top: 50px;
-      font-size: 18px;
-      color: #003366;
-    }
+        .search-bar {
+            width: 100%;
+            height: 48px;
+            background-color: #3A2A2E;
+            border-radius: 24px;
+            padding: 0 20px;
+            color: #E0E0E0;
+            font-size: 15px;
+            border: none;
+            outline: none;
+        }
 
-    .footer a {
-      color: #0000ee;
-      text-decoration: none;
-    }
+        /* OS X Welcome Popup */
+        .welcome-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            width: 380px;
+            background-color: #2C1F22;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            z-index: 4000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-    hr {
-      margin: 30px 0;
-      border: 2px solid #000;
-    }
+        .welcome-popup.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
 
-    /* Retro button look */
-    .retro-button {
-      display: inline-block;
-      padding: 8px 15px;
-      margin: 5px;
-      font-weight: bold;
-      color: #000;
-      background-color: #ffcc00;
-      border: 2px solid #000;
-      box-shadow: 3px 3px #888888;
-      cursor: pointer;
-      text-decoration: none;
-    }
+        .popup-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 32px auto 16px;
+            display: block;
+            border: 4px solid #3F2E32;
+        }
 
-    .retro-button:hover {
-      background-color: #ff9900;
-    }
-  </style>
+        .popup-content {
+            text-align: center;
+            padding: 0 32px 32px;
+        }
+
+        .popup-title {
+            font-size: 28px;
+            font-weight: 500;
+            color: #E0E0E0;
+            margin-bottom: 8px;
+        }
+
+        .popup-subtitle {
+            font-size: 15.5px;
+            color: #B0B0B0;
+            line-height: 1.4;
+            margin-bottom: 32px;
+        }
+
+        .close-popup-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E0E0E0;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .close-popup-btn:hover {
+            background-color: #3F2E32;
+        }
+
+        /* Calculator Window */
+        .window {
+            position: absolute;
+            width: 320px;
+            background-color: #1C1C1E;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            z-index: 3000;
+            display: none;
+            font-family: 'Product Sans', system-ui, sans-serif;
+        }
+
+        .title-bar {
+            height: 36px;
+            background-color: #2C2C2E;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            -webkit-app-region: drag;
+            user-select: none;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .win-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .close-btn { background-color: #FF5F57; }
+        .min-btn { background-color: #FFBD2E; }
+        .max-btn { background-color: #28C840; }
+
+        .calculator {
+            padding: 20px;
+        }
+
+        .display {
+            background-color: #000;
+            color: white;
+            font-size: 52px;
+            font-family: 'Product Sans', system-ui, sans-serif;
+            font-weight: 500;
+            text-align: right;
+            padding: 20px 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            min-height: 80px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .btn {
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-family: 'Product Sans', system-ui, sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .gray { background-color: #A0A0A0; color: black; }
+        .dark { background-color: #333; color: white; }
+        .orange { background-color: #FF9500; color: white; }
+
+        .btn:active {
+            transform: scale(0.92);
+        }
+    </style>
 </head>
 <body>
-  <!-- Top GitHub icon -->
-  <a href="https://github.com/aqua-os-ux/FMail">
-    <img class="top-icon" src="https://i.postimg.cc/JzdHLrQj/IMG-0764.png" alt="GitHub Icon">
-  </a>
+    <!-- Taskbar -->
+    <div class="taskbar" id="taskbar">
+        <div class="left-section">
+            <img src="https://i.postimg.cc/Kv4NSvM4/IMG-4056.png" class="taskbar-image" id="image-btn">
+        </div>
 
-  <div class="container">
-    <h1>Welcome to FMail</h1>
-    <img class="main-icon" src="https://i.postimg.cc/25yCwCQK/Untitled1804-20260208025446.png" alt="FMail Icon">
-
-    <h2>FAQ</h2>
-    <div class="faq">
-      <div class="question">What the hell is FMail?</div>
-      <div class="answer">FMail is a prank site. You make mail so it seems like someone emailed you, e.g., a celeb! Or anyone else, idk?</div>
-      
-      <div class="question">Can you send real emails?</div>
-      <div class="answer">Nope, it's a pranking site.</div>
-
-      <div class="question">Do we save any data?</div>
-      <div class="answer">No, this site is FOSS. If you want to check the code for yourself tap the GitHub icon on the very top of the screen. And idk how to code, I am a dumb vibe coder.</div>
-      
-      <div class="question">Any other questions?</div>
-      <div class="answer">Email me ¯\_(ツ)_/¯ <a href="mailto:ball.dex.help@gmail.com">ball.dex.help@gmail.com</a></div>
+        <div class="right-section">
+            <div class="icon-circle" id="notification-btn">
+                <span class="material-symbols-outlined">notifications</span>
+            </div>
+            <div class="date" id="date-btn"><span id="date"></span></div>
+        </div>
     </div>
 
-    <hr>
-
-    <div class="footer">
-      <p class="blink">↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
-      <p>Try FMail TODAY!</p>
-      <p><a class="retro-button" href="https://aqua-os-ux.github.io/FMail/">https://aqua-os-ux.github.io/FMail/</a></p>
-      <p class="blink">↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑</p>
+    <!-- App Menu -->
+    <div class="panel image-panel" id="image-panel">
+        <div class="panel-header">Apps</div>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search" id="search-input">
+        </div>
+        <div class="divider"></div>
+        
+        <div style="padding: 20px;">
+            <div onclick="openCalculator()" style="padding: 12px 16px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 16px;">
+                <img src="https://i.postimg.cc/0N0PLXcZ/IMG-4063.png" 
+                     style="width: 48px; height: 48px; border-radius: 12px; object-fit: cover;">
+                <div>
+                    <div style="color: #E0E0E0; font-size: 16px;">Calculator</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const questions = document.querySelectorAll('.question');
-    questions.forEach(q => {
-      q.addEventListener('click', () => {
-        const answer = q.nextElementSibling;
-        answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
-      });
-    });
-  </script>
+    <!-- OS X Welcome Popup -->
+    <div class="welcome-popup" id="welcome-popup">
+        <div class="close-popup-btn" onclick="closeWelcomePopup()">✕</div>
+        
+        <img src="https://i.postimg.cc/59LCXpXr/Untitled2112-20260528142336.png" 
+             class="popup-image" 
+             alt="OS X">
+        
+        <div class="popup-content">
+            <div class="popup-title">OS X</div>
+            <div class="popup-subtitle">
+                the best homepage that you can get from os x
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Window -->
+    <div class="window" id="calc-window">
+        <div class="title-bar">
+            <div class="window-buttons">
+                <div class="win-btn close-btn" onclick="closeCalculator()"></div>
+                <div class="win-btn min-btn"></div>
+                <div class="win-btn max-btn"></div>
+            </div>
+            <div style="margin-left: auto; color: #E0E0E0; font-size: 14px;">Calculator</div>
+        </div>
+        
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <div class="btn gray" onclick="clearDisplay()">AC</div>
+                <div class="btn gray" onclick="toggleSign()">+/-</div>
+                <div class="btn gray" onclick="percent()">%</div>
+                <div class="btn orange" onclick="inputOp('/')">÷</div>
+                
+                <div class="btn dark" onclick="inputNum('7')">7</div>
+                <div class="btn dark" onclick="inputNum('8')">8</div>
+                <div class="btn dark" onclick="inputNum('9')">9</div>
+                <div class="btn orange" onclick="inputOp('*')">×</div>
+                
+                <div class="btn dark" onclick="inputNum('4')">4</div>
+                <div class="btn dark" onclick="inputNum('5')">5</div>
+                <div class="btn dark" onclick="inputNum('6')">6</div>
+                <div class="btn orange" onclick="inputOp('-')">−</div>
+                
+                <div class="btn dark" onclick="inputNum('1')">1</div>
+                <div class="btn dark" onclick="inputNum('2')">2</div>
+                <div class="btn dark" onclick="inputNum('3')">3</div>
+                <div class="btn orange" onclick="inputOp('+')">+</div>
+                
+                <div class="btn dark" style="grid-column: span 2; border-radius: 40px;" onclick="inputNum('0')">0</div>
+                <div class="btn dark" onclick="inputNum('.')">.</div>
+                <div class="btn orange" onclick="calculate()">=</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification & Time Panels -->
+    <div class="panel notification-panel" id="notification-panel" style="right:20px">
+        <div class="panel-header">Notifications</div>
+        <div class="divider"></div>
+        <div style="margin:12px 16px; padding:16px; background:#3A2A2E; border-radius:20px; color:#E0E0E0;">
+            Your browser is way better than it looked before.
+        </div>
+    </div>
+
+    <div class="panel time-panel" id="time-panel" style="right:20px">
+        <div class="panel-header">Date &amp; Time</div>
+        <div class="divider"></div>
+        <div style="padding:20px 24px; text-align:center;">
+            <div id="big-time" style="font-size:42px; font-weight:500; color:#E0E0E0; margin-bottom:8px;">12:00:00</div>
+            <div id="full-date" style="font-size:15px; color:#B0B0B0; margin-bottom:24px;">May 28, 2026</div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#3A2A2E; border-radius:20px;">
+                <span style="font-size:14.5px; color:#E0E0E0;">24 hour time</span>
+                <div class="toggle-switch" id="military-toggle" onclick="toggleMilitary()"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let use24Hour = false;
+        let isCalcOpen = false;
+        let calcPosX = 300, calcPosY = 100;
+
+        const calcWindow = document.getElementById('calc-window');
+        const welcomePopup = document.getElementById('welcome-popup');
+
+        // Draggable Calculator
+        function makeDraggable() {
+            const titleBar = calcWindow.querySelector('.title-bar');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            titleBar.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('win-btn')) return;
+                isDragging = true;
+                offsetX = e.clientX - calcWindow.offsetLeft;
+                offsetY = e.clientY - calcWindow.offsetTop;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                calcPosX = Math.max(0, e.clientX - offsetX);
+                calcPosY = Math.max(0, e.clientY - offsetY);
+                calcWindow.style.left = calcPosX + 'px';
+                calcWindow.style.top = calcPosY + 'px';
+            });
+
+            document.addEventListener('mouseup', () => isDragging = false);
+        }
+
+        // Calculator Logic (unchanged)
+        let displayValue = '0';
+        let firstOperand = null;
+        let waitingForSecondOperand = false;
+        let operator = null;
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = displayValue;
+        }
+
+        function inputNum(num) {
+            if (waitingForSecondOperand) {
+                displayValue = num;
+                waitingForSecondOperand = false;
+            } else {
+                displayValue = displayValue === '0' ? num : displayValue + num;
+            }
+            updateDisplay();
+        }
+
+        function inputOp(nextOp) {
+            const inputValue = parseFloat(displayValue);
+            if (operator && waitingForSecondOperand) {
+                operator = nextOp;
+                return;
+            }
+            if (firstOperand === null) {
+                firstOperand = inputValue;
+            } else if (operator) {
+                const result = calculateResult(firstOperand, inputValue, operator);
+                displayValue = String(result);
+                firstOperand = result;
+            }
+            waitingForSecondOperand = true;
+            operator = nextOp;
+            updateDisplay();
+        }
+
+        function calculateResult(first, second, op) {
+            if (op === '+') return first + second;
+            if (op === '-') return first - second;
+            if (op === '*') return first * second;
+            if (op === '/') return second !== 0 ? first / second : 'Error';
+            return second;
+        }
+
+        function calculate() {
+            if (operator === null) return;
+            const inputValue = parseFloat(displayValue);
+            let result = calculateResult(firstOperand, inputValue, operator);
+            displayValue = String(result);
+            operator = null;
+            waitingForSecondOperand = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            displayValue = '0';
+            firstOperand = null;
+            operator = null;
+            waitingForSecondOperand = false;
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            displayValue = String(parseFloat(displayValue) * -1);
+            updateDisplay();
+        }
+
+        function percent() {
+            displayValue = String(parseFloat(displayValue) / 100);
+            updateDisplay();
+        }
+
+        function openCalculator() {
+            if (isCalcOpen) return;
+            isCalcOpen = true;
+            calcWindow.style.display = 'block';
+            calcWindow.style.left = calcPosX + 'px';
+            calcWindow.style.top = calcPosY + 'px';
+            document.getElementById('image-panel').classList.remove('show');
+        }
+
+        function closeCalculator() {
+            isCalcOpen = false;
+            calcWindow.style.display = 'none';
+        }
+
+        function toggleMilitary() {
+            use24Hour = !use24Hour;
+            document.getElementById('military-toggle').classList.toggle('active', use24Hour);
+        }
+
+        function closeWelcomePopup() {
+            welcomePopup.classList.remove('show');
+        }
+
+        // Panel Controls
+        document.getElementById('image-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('image-panel').classList.toggle('show');
+        });
+
+        document.getElementById('notification-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('notification-panel').classList.toggle('show');
+        });
+
+        document.getElementById('date-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('time-panel').classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            document.getElementById('image-panel').classList.remove('show');
+            document.getElementById('notification-panel').classList.remove('show');
+            document.getElementById('time-panel').classList.remove('show');
+        });
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            document.getElementById('date').textContent = `${String(now.getDate()).padStart(2,'0')}-${months[now.getMonth()]}-${now.getFullYear()}`;
+            
+            let h = now.getHours(), m = String(now.getMinutes()).padStart(2,'0'), s = String(now.getSeconds()).padStart(2,'0');
+            let timeStr = use24Hour ? `${h}:${m}:${s}` : `${(h%12)||12}:${m}:${s} ${h>=12?'PM':'AM'}`;
+            document.getElementById('big-time').textContent = timeStr;
+            document.getElementById('full-date').textContent = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        }
+
+        // Initialize
+        makeDraggable();
+        updateClock();
+        setInterval(updateClock, 1000);
+        updateDisplay();
+
+        // Show Welcome Popup after a short delay
+        setTimeout(() => {
+            welcomePopup.classList.add('show');
+        }, 800);
+    </script>
 </body>
 </html>
